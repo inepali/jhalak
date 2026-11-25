@@ -1,97 +1,73 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Menu Display for Samsung TV (Tizen)
 
-# Getting Started
+A small Tizen web app that puts the Menu Display menu board
+(`https://menudisplay.carelocal.net/cast`) full screen on a Samsung Smart TV.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+> Branch `Samsung`. The Fire TV / Android app (React Native) lives on
+> `menu-display` and `main`.
 
-## Step 1: Start Metro
+## How it works
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+`app/index.html` + `app/js/main.js` run once at launch:
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+1. Turn the TV screensaver off (`webapis.appcommon.setScreenSaver`).
+2. Check the site is reachable. If not, show a "Can't reach Menu Display"
+   screen and retry (5 s, backing off to 60 s, and immediately when the
+   network comes back).
+3. Open `/cast` as the app's page. From there the site does everything:
+   pairing (saved in localStorage), menu rotation, offline media cache, and
+   background music through its own `<audio>` element.
 
-```sh
-# Using npm
-npm start
+The Fire TV app needed a native audio player because Android WebView blocks
+autoplay. Tizen apps can autoplay, so that bridge (`window.backgroundAudioUrl`
++ `react-native-video`) is gone.
 
-# OR using Yarn
-yarn start
+Remote: **Return** on the launcher screen exits the app; **Exit/Home** always
+work.
+
+## Layout
+
+```
+app/            the Tizen project (this folder is what gets packaged)
+  config.xml    app ID, name, icon, privileges, allowed hosts
+  index.html    launcher screen
+  js/main.js    launch logic (ES5, runs on 2015+ TVs)
+  css/style.css
+  icon.png      512x512 launcher icon
+scripts/
+  check.sh      validate without the Tizen SDK
+  package.sh    build + sign dist/MenuDisplay.wgt
+  install.sh    install + launch on a TV
 ```
 
-## Step 2: Build and run your app
+App ID `MnuDspTV01.MenuDisplay`. Keep the package ID `MnuDspTV01` for every
+release so TVs update the app in place.
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+## One-time setup
 
-### Android
+1. Install **Tizen Studio** (with CLI) and, in Package Manager, the
+   **Samsung TV Extensions** and **Samsung Certificate Extension**.
+   Add `<tizen-studio>/tools/ide/bin` and `<tizen-studio>/tools` to `PATH`
+   (for `tizen` and `sdb`).
+2. In **Certificate Manager**, create a **Samsung** certificate profile named
+   `MenuDisplay` (sign in with a Samsung account). Add your TV's DUID to the
+   distributor certificate. A plain Tizen certificate won't install on retail
+   TVs.
+3. On the TV: **Apps** → press `1 2 3 4 5` on the remote → turn
+   **Developer mode** on and enter your computer's IP → restart the TV.
 
-```sh
-# Using npm
-npm run android
-
-# OR using Yarn
-yarn android
-```
-
-### iOS
-
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+## Build and install
 
 ```sh
-bundle install
+npm run check                 # sanity checks, no SDK needed
+npm run package               # -> dist/MenuDisplay.wgt (TIZEN_PROFILE=MenuDisplay)
+npm run tv -- 192.168.1.50    # install + launch on the TV
 ```
 
-Then, and every time you update your native dependencies, run:
+You can also open `app/` in Tizen Studio (File → Import → Tizen → Tizen
+Project) and Run As → Tizen Web Application.
 
-```sh
-bundle exec pod install
-```
+## Changing the site URL
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
-
-```sh
-# Using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
-```
-
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
-
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
-
-## Step 3: Modify your app
-
-Now that you have successfully run the app, let's make changes!
-
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
-
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
-
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+Edit `DISPLAY_URL` / `PING_URL` in `app/js/main.js` and the
+`<tizen:allow-navigation>` host in `app/config.xml`.

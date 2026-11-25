@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Samsung Smart TV (Tizen) packaging manifest for Menu Display.
+
+  Package ID must be exactly 10 alphanumeric characters and stay the same for
+  every release, or TVs treat a new build as a different app.
+-->
+<widget xmlns="http://www.w3.org/ns/widgets"
+        xmlns:tizen="http://tizen.org/ns/widgets"
+        id="http://carelocal.net/menudisplay"
+        version="1.0.0"
+        viewmodes="maximized">
+
+    <tizen:application id="MnuDspTV01.MenuDisplay" package="MnuDspTV01" required_version="2.3"/>
+    <tizen:profile name="tv-samsung"/>
+
+    <name>Menu Display</name>
+    <description>Shows your Menu Display menu boards and background music on a Samsung TV.</description>
+    <author href="https://menudisplay.carelocal.net">CareLocal</author>
+
+    <icon src="icon.png"/>
+    <content src="index.html"/>
+
+    <feature name="http://tizen.org/feature/screen.size.all"/>
+
+    <!-- Network access to the display site, its media (Cloudflare R2) and analytics. -->
+    <access origin="*" subdomains="true"/>
+    <tizen:allow-navigation>menudisplay.carelocal.net</tizen:allow-navigation>
+    <tizen:privilege name="http://tizen.org/privilege/internet"/>
+
+    <tizen:setting screen-orientation="landscape"
+                   context-menu="disable"
+                   background-support="disable"
+                   encryption="disable"
+                   install-location="auto"
+                   hwkey-event="enable"/>
+
+    <!-- Keep the app warm so it opens straight back to the menu. -->
+    <tizen:metadata key="http://samsung.com/tv/metadata/prelaunch.support" value="true"/>
+</widget>
