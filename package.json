@@ -1,8 +1,8 @@
 {
-  "name": "menudisplay-tizen",
+  "name": "jhalak-tizen",
   "version": "1.0.0",
   "private": true,
-  "description": "Menu Display for Samsung Smart TVs (Tizen web app)",
+  "description": "Jhalak for Samsung Smart TVs (Tizen web app)",
   "scripts": {
     "check": "./scripts/check.sh",
     "package": "./scripts/package.sh",

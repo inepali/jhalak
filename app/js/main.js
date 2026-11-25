@@ -1,5 +1,5 @@
 /*
- * Menu Display launcher for Samsung TVs (Tizen).
+ * Jhalak launcher for Samsung TVs (Tizen).
  *
  * Runs once at app start, then hands the whole window to the display site:
  *   1. Turns the TV screensaver off so the menu stays on screen.
@@ -27,7 +27,7 @@
     var checking = false;
 
     function log(msg) {
-        if (window.console) console.log('[MenuDisplay] ' + msg);
+        if (window.console) console.log('[Jhalak] ' + msg);
     }
 
     function keepScreenOn() {
@@ -55,7 +55,7 @@
     }
 
     function showOffline() {
-        statusEl.textContent = 'Can’t reach Menu Display';
+        statusEl.textContent = 'Can’t reach Jhalak';
         hintEl.hidden = false;
     }
 

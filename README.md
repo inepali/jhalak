@@ -1,6 +1,6 @@
-# Menu Display for Samsung TV (Tizen)
+# Jhalak for Samsung TV (Tizen)
 
-A small Tizen web app that puts the Menu Display menu board
+A small Tizen web app that puts the Jhalak menu board
 (`https://jhalak.app/cast`) full screen on a Samsung Smart TV.
 
 > Branch `Samsung`. The Fire TV / Android app (React Native) lives on
@@ -11,7 +11,7 @@ A small Tizen web app that puts the Menu Display menu board
 `app/index.html` + `app/js/main.js` run once at launch:
 
 1. Turn the TV screensaver off (`webapis.appcommon.setScreenSaver`).
-2. Check the site is reachable. If not, show a "Can't reach Menu Display"
+2. Check the site is reachable. If not, show a "Can't reach Jhalak"
    screen and retry (5 s, backing off to 60 s, and immediately when the
    network comes back).
 3. Open `/cast` as the app's page. From there the site does everything:
@@ -36,11 +36,11 @@ app/            the Tizen project (this folder is what gets packaged)
   icon.png      512x512 launcher icon
 scripts/
   check.sh      validate without the Tizen SDK
-  package.sh    build + sign dist/MenuDisplay.wgt
+  package.sh    build + sign dist/Jhalak.wgt
   install.sh    install + launch on a TV
 ```
 
-App ID `MnuDspTV01.MenuDisplay`. Keep the package ID `MnuDspTV01` for every
+App ID `JhalakTV01.Jhalak`. Keep the package ID `JhalakTV01` for every
 release so TVs update the app in place.
 
 ## One-time setup
@@ -50,7 +50,7 @@ release so TVs update the app in place.
    Add `<tizen-studio>/tools/ide/bin` and `<tizen-studio>/tools` to `PATH`
    (for `tizen` and `sdb`).
 2. In **Certificate Manager**, create a **Samsung** certificate profile named
-   `MenuDisplay` (sign in with a Samsung account). Add your TV's DUID to the
+   `Jhalak` (sign in with a Samsung account). Add your TV's DUID to the
    distributor certificate. A plain Tizen certificate won't install on retail
    TVs.
 3. On the TV: **Apps** → press `1 2 3 4 5` on the remote → turn
@@ -60,7 +60,7 @@ release so TVs update the app in place.
 
 ```sh
 npm run check                 # sanity checks, no SDK needed
-npm run package               # -> dist/MenuDisplay.wgt (TIZEN_PROFILE=MenuDisplay)
+npm run package               # -> dist/Jhalak.wgt (TIZEN_PROFILE=Jhalak)
 npm run tv -- 192.168.1.50    # install + launch on the TV
 ```
 
