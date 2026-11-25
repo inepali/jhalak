@@ -49,7 +49,7 @@ Fix all **Blocker** and **Major** findings, and the **Minor** ones unless it's u
 Fix the tester's failures, then go back through **review → commit → push → test**.
 
 ### `open-pr JH-###` (only after the tester returns PASS)
-Run `gh pr create --base main`:
+Run `gh pr create --base main` (if GraphQL is blocked, as it is in Claude cloud sessions, use `gh api repos/inepali/<repo>/pulls -f title=... -f head=<branch> -f base=main -f body=...`):
 - Title: `JH-###: <title>`
 - Body: a spec link, a summary, the review verdict, the test summary, preview URLs, **deploy steps for Sanjay** (migrations, functions, secrets, in order), and pending manual-device checks. End with the PR attribution line.
 - **Never merge.** Set the spec to `status: pr-open`.
