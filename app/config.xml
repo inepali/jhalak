@@ -7,7 +7,7 @@
 -->
 <widget xmlns="http://www.w3.org/ns/widgets"
         xmlns:tizen="http://tizen.org/ns/widgets"
-        id="http://carelocal.net/menudisplay"
+        id="https://jhalak.app/tv"
         version="1.0.0"
         viewmodes="maximized">
 
@@ -16,7 +16,7 @@
 
     <name>Menu Display</name>
     <description>Shows your Menu Display menu boards and background music on a Samsung TV.</description>
-    <author href="https://menudisplay.carelocal.net">CareLocal</author>
+    <author href="https://jhalak.app">Jhalak</author>
 
     <icon src="icon.png"/>
     <content src="index.html"/>
@@ -25,7 +25,7 @@
 
     <!-- Network access to the display site, its media (Cloudflare R2) and analytics. -->
     <access origin="*" subdomains="true"/>
-    <tizen:allow-navigation>menudisplay.carelocal.net</tizen:allow-navigation>
+    <tizen:allow-navigation>jhalak.app *.jhalak.app</tizen:allow-navigation>
     <tizen:privilege name="http://tizen.org/privilege/internet"/>
 
     <tizen:setting screen-orientation="landscape"

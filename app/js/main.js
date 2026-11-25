@@ -13,8 +13,8 @@
 (function () {
     'use strict';
 
-    var DISPLAY_URL = 'https://menudisplay.carelocal.net/cast';
-    var PING_URL = 'https://menudisplay.carelocal.net/favicon.ico';
+    var DISPLAY_URL = 'https://jhalak.app/cast';
+    var PING_URL = 'https://jhalak.app/favicon.ico';
     var PING_TIMEOUT_MS = 8000;
     var RETRY_MIN_MS = 5000;
     var RETRY_MAX_MS = 60000;

@@ -1,7 +1,7 @@
 # Menu Display for Samsung TV (Tizen)
 
 A small Tizen web app that puts the Menu Display menu board
-(`https://menudisplay.carelocal.net/cast`) full screen on a Samsung Smart TV.
+(`https://jhalak.app/cast`) full screen on a Samsung Smart TV.
 
 > Branch `Samsung`. The Fire TV / Android app (React Native) lives on
 > `menu-display` and `main`.
